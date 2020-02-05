@@ -1,6 +1,6 @@
 # Ecran RATP Web
 
-Cet écran de la RATP correspond à la représentation graphique fidèle d'un écran d'information en gare du réseau RATP.
+Cet écran de la RATP codé en HTML/CSS/JS correspond à la représentation graphique fidèle d'un écran d'information en gare du réseau RATP.
 
 ## Installation
 
