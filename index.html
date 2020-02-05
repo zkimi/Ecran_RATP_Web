@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>API RATP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link href="css/bootstrap-cosmo.css" rel="stylesheet"/>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet"/>
+    <link href="css/fix.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script type="text/x-template" id="page-template">
+      <table class="table">
+        <tbody>
+          <tr class="tr-header" style="border-bottom: 6px solid #d70000;">
+            <td class="td1">
+              <img src="img/ratp/logo-<%= type %>.png" alt="" class="rer-logo" />
+              <img src="img/ratp/logo-<%= type %>-<%= line %>.png" alt="" class="rer-ligne" />
+              <p><u>Station:</u> <%= station %></p>
+              <p><u>Direction:</u> <%= get_final_station(!current_road) %></p>
+            </td>
+            <td>
+              <div id="switch" onclick=switcher()>
+                <span><i class="fas fa-exchange-alt"></i><br> Switch to <%= get_final_station(current_road) %></span>
+              </div>
+            </td>
+            <td colspan="2" class="td2-header"><div class="heure"><%= current_time %></div></td>
+          </tr>
+          <% _.map(horaires, function (horaire, i) { %>
+            <tr class="<% if(i%2) { %>bg-tr <% } %>tr-normal">
+              <td class="td1"><div class="code"><%= horaire.code %></div><p style="color: #00066c;font-size:40px;line-height:1"><%= horaire.destination %></p></td>
+              <td class="td2">
+                <div class="minutes">
+                  <p style="position: relative;top: 30%;font-size: 64px;color: #ffcd00;">
+                    <%= remain_time(current_time_minutes, to_minutes(horaire.message)) %>
+                  </p>
+                  <p style="position: relative;top: 55%;color:#ffcd0099;">min</p>
+                </div>
+              </div>
+              <td class="td3" style="background-color: #404E59;"><p><%= horaire.message %></p></td>
+            </tr>
+          <% }) %>
+
+          <tr class="tr-trafic">
+            <td class="tdfull" colspan="3"><p><i><%= traffic %></i></p></td>
+          </tr>
+        </tbody>
+      </table>
+    </script>
+
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/underscore.min.js"></script>
+    <script src="js/ratp.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
